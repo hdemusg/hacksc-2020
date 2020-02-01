@@ -10,5 +10,9 @@ api = Api(app)
 def home():
     return render_template('home.html')
 
+@app.route("/talk", methods=['GET'])
+def talk():
+    return "let's talk."
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=8000, debug=True)
