@@ -27,6 +27,7 @@
     }
     h1{
         font-size:40pt;
+        font-weight:bold;
     }
 </style>
 </head>
@@ -69,7 +70,7 @@
                         substitute for getting proffesional help, but rather a suplemental resource for additional support. If you'd like
                         assistance in finding help, please visit our resources page.</p>
                     <h2>Chat</h2>
-                    <p>Press the button below to begin connecting!</p>
+                    <p>Choose a screen name and press the button below to begin connecting!</p>
                         <!---
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Pick a Struggle
@@ -81,11 +82,23 @@
                             </ul>
                         </div>
                         -->
-                    <a href="talk" class="btn btn-primary" role="button">Connect</a>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <form action="/action_page.php">
+                                <div class="form-group">
+                                  <input type="username" class="form-control" id="username" placeholder="Username" name="username">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="talk" class="btn btn-primary" role="button" type="submit">Connect</a>
+                        </div>
+                    </div>
                 </div>
+                <!--
                 <div class="col-sm-6">
-                    <img src="ppl.jpg" class="img-rounded" alt="People">
-                </div>
+                    <img src="images/ppl.jpg" class="img-rounded" alt="People">
+                </div> -->
             </div>
         </div>
     </div>
