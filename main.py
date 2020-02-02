@@ -9,12 +9,12 @@ from flask_socketio import SocketIO
 #cred = credentials.Certificate('C:/Users/sumed/documents/github/hacksc-2020/key/hacksc-2020-266907-firebase-adminsdk-zhk3f-994e6fa697.json')
 #firebase_admin.initialize_app(cred, {'databaseURL': 'https://hacksc-2020-266907.firebaseio.com'})
 #import requests
-
+import nlp
 app = Flask(__name__)
-#flask_cors.CORS(app)
-#api = flask_restful.Api(app)
-app.config['SECRET_KEY'] = 'ioemoidvnuoi3980'
-socketio = SocketIO(app)
+flask_cors.CORS(app)
+api = flask_restful.Api(app)
+#app.config['SECRET_KEY'] = 'ioemoidvnuoi3980'
+#socketio = SocketIO(app)
 
 '''
 @app.route("/")
@@ -28,10 +28,16 @@ def chat(u):
     return render_template('talk.html', uid=u)
     '''
 
-@app.route("/")
+
+@app.route("/", methods=['GET'])
 def talk():
     return render_template('talk.html')
 
+@app.route("/analyze", methods=['POST'])
+def analyze():
+    
+
+'''
 def messageReceived(methods=['GET, POST']):
     print('message received')
 
@@ -39,10 +45,11 @@ def messageReceived(methods=['GET, POST']):
 def handle_my_custom_event(json, methods=['GET', 'POST']):
     print('received my event: ' + str(json))
     socketio.emit('my response', json, callback=messageReceived)
+    '''
 
 if __name__ == "__main__":
-    #app.run(host="127.0.0.1", port=8080, debug=True)
-    socketio.run(app, debug=True)
+    app.run(host="127.0.0.1", port=8080, debug=True)
+    #socketio.run(app, debug=True)
 
 #@app.route("/", methods=['POST'])
 #def login():
