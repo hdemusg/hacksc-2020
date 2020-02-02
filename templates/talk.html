@@ -132,6 +132,20 @@
     function update() {
         document.getElementById("statement").innerText = document.getElementById("message").value;
         document.getElementById("message").value = "";
+        alert("Thank you for taking the initiative to get something off of your chest. Check the resources tab for help, and make sure to take care of yourself!")
+        /*
+        var t = '{ "phrase" : [' + document.getElementById("statement").innerText + ']}';
+        var obj = JSON.parse(t)
+        const Http = new XMLHttpRequest();
+        const url = 'https://hacksc-2020-266907.appspot.com/analyze'
+        Http.open("POST", url);
+        Http.send(obj);
+        Http.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200) {
+                console.log(Http.responseText);
+            }
+        }
+        */
     }
 </script>
 <!--

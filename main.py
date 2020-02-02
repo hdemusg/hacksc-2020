@@ -9,7 +9,7 @@ import flask_cors
 #cred = credentials.Certificate('C:/Users/sumed/documents/github/hacksc-2020/key/hacksc-2020-266907-firebase-adminsdk-zhk3f-994e6fa697.json')
 #firebase_admin.initialize_app(cred, {'databaseURL': 'https://hacksc-2020-266907.firebaseio.com'})
 #import requests
-import nlp
+#import nlp
 app = Flask(__name__)
 flask_cors.CORS(app)
 api = flask_restful.Api(app)
@@ -33,10 +33,15 @@ def chat(u):
 def talk():
     return render_template('talk.html')
 
+'''
 @app.route("/analyze", methods=['POST'])
 def analyze():
-    
-
+    text = request.get_json()["phrase"]
+    with open('xyz.txt', 'w', newline="\n") as r:
+        r.write(text)
+        s, t = nlp.text_sentiments()
+        return json.dumps({"score": s, "total": t})
+'''
 '''
 def messageReceived(methods=['GET, POST']):
     print('message received')

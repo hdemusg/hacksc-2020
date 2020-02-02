@@ -71,3 +71,4 @@ def text_sentiments():
 
 	print('Text: {}'.format(text))
 	print('Sentiment: {}, {}'.format(sentiment.score, sentiment.magnitude))
+	return sentiment.score, (sentiment.score * sentiment.magnitude * 10)
