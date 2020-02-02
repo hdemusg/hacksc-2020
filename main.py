@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session
 import flask_restful
 import flask_cors
-from flask_socketio import SocketIO
+#from flask_socketio import SocketIO
 #import os
 #import firebase_admin
 #from firebase_admin import credentials

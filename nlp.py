@@ -6,9 +6,9 @@ import os
 import json
 import requests
 
-def text_sentiments:
+def text_sentiments():
 
-	os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="/Users/karanmenon/HackSC-2020-45a6e91a7f35.json"
+	os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="/HackSC-2020-45a6e91a7f35.json"
 
 # Instantiates a client
 
