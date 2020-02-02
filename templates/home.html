@@ -36,18 +36,20 @@
 
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" id="navId">
-    <li class="nav-item">
+    <li class="nav-item active">
         <a href="#tab1Id" class="nav-link" data-toggle="tab">Home</a>
     </li>
-    <li class="nav-item">
+    <!-- 
+        <li class="nav-item">
         <a href="#tab2Id" class="nav-link" data-toggle="tab">Resources</a>
     </li>
-    <li class="nav-item">
+<li class="nav-item">
         <a href="#tab3Id" class="nav-link" data-toggle="tab">Browse Stories</a>
     </li>
     <li class="nav-item">
         <a href="#tab4Id" class="nav-link" data-toggle="tab">Submit a Story</a>
     </li>
+    -->
 </ul>
 
 <!-- Jumbotron -->
@@ -67,10 +69,10 @@
                         This website is dedicated to helping you find support by matching you with others who have gone through, or are 
                         currently going through, similar struggles. We believe that one of the most beneficial experiences can be to hear 
                         the stories of others and know that you're not alone. However, please know that this should not be treated as a 
-                        substitute for getting proffesional help, but rather a suplemental resource for additional support. If you'd like
+                        substitute for getting proffesional help, but rather a supplemental resource for additional support. If you'd like
                         assistance in finding help, please visit our resources page.</p>
                     <h2>Chat</h2>
-                    <p>Choose a screen name and press the button below to begin connecting!</p>
+                    <p>Press the button below to begin connecting!</p>
                         <!---
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Pick a Struggle
@@ -83,16 +85,17 @@
                         </div>
                         -->
                     <div class="row">
-                        <div class="col-sm-6">
-                            <form method="POST">
-                                <div class="form-group">
-                                  <input type="username" class="form-control" id="username" placeholder="Username" name="username">
+                        <form method="post">
+                            <div class="form-group">
+                                    <!--<div class="col-sm-6">
+                                   <input type="username" class="form-control" id="username" placeholder="Username" name="username">
                                 </div>
-                            </form>
-                        </div>
-                        <div class="col-sm-6">
-                            <a onclick="connect()" href="https://hacksc-2020-266907.appspot.com/talk" class="btn btn-primary" role="button" type="submit">Connect</a>
-                        </div>
+                                <div class="col-sm-6">
+                                    <input type="submit" class="btn btn-primary" value="Connect">-->
+                                     <a href="https://hacksc-2020-266907.appspot.com/talk" id="connect" class="btn btn-primary" role="button" type="submit">Connect</a>    
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -174,25 +177,30 @@
                 var isAnonymous = user.isAnonymous;
                 var uid = user.uid
                 var username = document.getElementById("username").innerText;
+                /*
                 var xmlHttp = new XMLHttpRequest();
                 xmlHttp.onreadystatechange = function() { 
                     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
                         callback(xmlHttp.responseText);
                     }
                 xmlHttp.open("GET", "https://hacksc-2020-266907.appspot.com/talk", true); // true for asynchronous 
+                */
         // ...
             } else {
             // User is signed out.
+                /*
                 var xmlHttp = new XMLHttpRequest();
                 xmlHttp.onreadystatechange = function() { 
                     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
                         callback(xmlHttp.responseText);
                     }
                 xmlHttp.open("GET", "https://hacksc-2020-266907.appspot.com/", true); // true for asynchronous 
+                */
             }
     // ...
         });
-    }
+        
+   }
 
     function connect() {
         firebase.auth().signInAnonymously().catch(function(error) {
@@ -206,11 +214,23 @@
                 console.error(error);
             }
         });
-    }
-
-    function disconnect() {
-        firebase.auth().username
-        firebase.auth().signOut();
+        console.log("sexy sexy sexy")
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+                    .then(function() {
+                         // Existing and future Auth states are now persisted in the current
+                        // session only. Closing the window would clear any existing state even
+                        // if a user forgets to sign out.
+                        // ...
+                        // New sign-in will be persisted with session persistence.
+                return firebase.auth().signInAnonymously();
+    })
+    .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+    });
+        //url = "https://hacksc-2020-266907.appspot.com/talk" + "?u=" + firebase.auth().currentUser.uid;
+       // window.location.assign(url)
     }
 
     function isUserSignedIn() {
