@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Home</title>
+<title>Home | NotAlone</title>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,7 +32,7 @@
 </style>
 </head>
 
-<body>
+<body onload="initFirebaseAuth()">
 
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" id="navId">
@@ -52,7 +52,7 @@
 
 <!-- Jumbotron -->
 <div class="jumbotron text-center" style="margin-bottom:0">
-    <h1>Share your Stories</h1>
+    <h1>NotAlone</h1>
     <p>A Platform for Sharing Stories & Support!</p> 
 </div>
 
@@ -91,7 +91,7 @@
                             </form>
                         </div>
                         <div class="col-sm-6">
-                            <a href="talk" class="btn btn-primary" role="button" type="submit">Connect</a>
+                            <a onclick="connect()" href="https://hacksc-2020-266907.appspot.com/talk" class="btn btn-primary" role="button" type="submit">Connect</a>
                         </div>
                     </div>
                 </div>
@@ -127,6 +127,7 @@
         $(this).tab('show');
     });
 </script>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -138,11 +139,18 @@
 <!-- TODO: Add SDKs for Firebase products that you want to use
     https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
-<!-- Initialize Firebase -->
-<script defer src="/__/firebase/init.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-performance.js"></script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+
 <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
     apiKey: "AIzaSyASfYpZ9VHMcX8HkBZDKRjP041bjFuKK-s",
     authDomain: "hacksc-2020-266907.firebaseapp.com",
     databaseURL: "https://hacksc-2020-266907.firebaseio.com",
@@ -151,18 +159,70 @@
     messagingSenderId: "197496250123",
     appId: "1:197496250123:web:ecaf2b2d97226c01934c0e",
     measurementId: "G-Q088YEKY6Q"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
 </script>
-</body>
+
+<!-- authentication -->
+<script>
+    function initFirebaseAuth() {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+        // User is signed in.
+                var isAnonymous = user.isAnonymous;
+                var uid = user.uid
+                var username = document.getElementById("username").innerText;
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function() { 
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                        callback(xmlHttp.responseText);
+                    }
+                xmlHttp.open("GET", "https://hacksc-2020-266907.appspot.com/talk", true); // true for asynchronous 
+        // ...
+            } else {
+            // User is signed out.
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function() { 
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                        callback(xmlHttp.responseText);
+                    }
+                xmlHttp.open("GET", "https://hacksc-2020-266907.appspot.com/", true); // true for asynchronous 
+            }
+    // ...
+        });
+    }
+
+    function connect() {
+        firebase.auth().signInAnonymously().catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+
+            if (errorCode === 'auth/operation-not-allowed') {
+                alert('You must enable Anonymous auth in the Firebase Console.');
+            } else {
+                console.error(error);
+            }
+        });
+    }
+
+    function disconnect() {
+        firebase.auth().username
+        firebase.auth().signOut();
+    }
+
+    function isUserSignedIn() {
+        return !!firebase.auth().currentUser;
+    }
     
+    </script>
     <script>
         $('#navId a').click(e => {
             e.preventDefault();
             $(this).tab('show');
         });
     </script>
-  </body>
+</body>
 </html>

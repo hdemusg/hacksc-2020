@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import flask_restful
 import flask_cors
+#import requests
 
 app = Flask(__name__)
 flask_cors.CORS(app)
@@ -17,8 +18,10 @@ def talk():
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=8080, debug=True)
 
+'''
 @app.route('/', methods=['POST'])
 def my_form_post():
     text = request.form['username']
     processed_text = text.upper()
     return processed_text
+'''
